@@ -1,0 +1,37 @@
+.button {
+    display: block;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.2s, color 0.2s;
+    align-items: center;
+    justify-content: center;
+}
+
+.button.primary {
+    background-color: var(--primary);
+    color: var(--secondary-background);
+}
+
+.button.primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.button.outline {
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    background-color: transparent;
+}
+
+.button.outline:hover {
+    background-color: rgba(191, 49, 49, 0.05);
+}
+
+.button.text {
+    color: var(--primary);
+    background-color: transparent;
+}
+
+.button.text:hover {
+    background-color: rgba(191, 49, 49, 0.05);
+}

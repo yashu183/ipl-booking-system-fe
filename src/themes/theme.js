@@ -11,13 +11,12 @@ export const getTheme = () => {
   
   export const theme = {
     light: {
-      text: '#233142',
-      border: '#5A5A5A',
-      primary: '#BF3131',
-      primaryHover: '#7D0A0A',
-      primaryBackground: '#F9F7F7',
-      sidePanelBackground: '#F2F2F2',
-      secondaryBackground: '#EFEFEF',
+      text: '#233142', // change this
+      border: '#5A5A5A', // change this
+      primary: '#5586ee',
+      primaryHover: '#7D0A0A', // change this
+      primaryBackground: '#f2f5ff',
+      secondaryBackground: '#FFFFFF',
       error: '#DC3545',
       errorBackground: '#F8D7DA',
       success: '#28A745',
@@ -27,8 +26,8 @@ export const getTheme = () => {
       neutral: '#6C757D',
       neutralBackground: '#E2E3E5',
       shadow: 'rgba(0, 0, 0, 0.1)',
-      },
-      dark: {
+    },
+    dark: {
       text: '#F9F7F7',
       border: '#333333',
       primary: '#BF3131',
@@ -46,7 +45,7 @@ export const getTheme = () => {
       neutralBackground: '#3C3C3C',
       shadow: 'rgba(0, 0, 0, 0.4)',
     }
-  }
+  };
   
   const applyTheme = (themeName = 'light') => {
     const themeVariables = theme[themeName] || theme.light

@@ -1,0 +1,137 @@
+.match-card {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 5px 5px 8px 0px var(--primary-shadow);
+  padding: 20px;
+  background-color: var(--secondary-background);
+  position: relative;
+  margin: 20px auto;
+}
+
+.teams-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+}
+
+.team-logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.team-logo-img {
+  max-width: 80%;
+  max-height: 80%;
+}
+
+.team-name {
+  font-weight: bold;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.match-metadata {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.match-metadata .versus {
+  font-size: 1.6rem;
+}
+
+.match-metadata .venue, .match-metadata .date {
+  font-size: 0.75rem;
+}
+
+.venue, .date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.versus {
+  font-weight: bold;
+  font-size: 32px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.partition {
+  width: 80%;
+  margin: 0.8rem auto;
+  opacity: 0.25;
+}
+
+
+.pricing-data {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+}
+
+.ticket-label {
+  width: 30%;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.ticket-price, .active-tkts {
+  font-weight: bold;
+  font-size: 24px;
+  color: var(--success);
+}
+
+.active-tkts {
+  font-size: 20px;
+}
+
+.button-wrapper {
+  width: 30%;
+}
+
+.book-button {
+  font-size: 0.9rem;
+  padding: 2px 4px;
+  float: right;
+}
+
+/* Action Icons */
+.action-icons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.icon {
+  cursor: pointer;
+  color: #555;
+}
+
+.edit-icon:hover {
+  color: #3498db;
+}
+
+.delete-icon:hover {
+  color: #e74c3c;
+}
