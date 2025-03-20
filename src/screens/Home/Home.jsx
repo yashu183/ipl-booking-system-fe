@@ -1,48 +1,14 @@
 import React, { useState } from 'react';
 import Header from '../../components/Header/Header';
-// import SearchForm from '../../components/SearchForm/SearchForm';
 import MatchCard from '../../components/MatchCard/MatchCard';
+import BookingCard from '../../components/BookingCard/BookingCard';
 import './Home.css';
 
-// Sample data based on the screenshot
-const sampleJourneys = [
-  {
-    trainNumber: '18238',
-    trainName: 'Kovai Express',
-    duration: '8hr 25min',
-    origin: 'Chennai',
-    originCode: 'CHN',
-    departureTime: '1:00PM',
-    destination: 'Coimbatore',
-    destinationCode: 'CB',
-    arrivalTime: '4:00AM',
-    price: '120',
-    availableSeats: '20',
-    totalSeats: '120'
-  },
-  {
-    trainNumber: '18238',
-    trainName: 'Kovai Express',
-    duration: '8hr 25min',
-    origin: 'Chennai',
-    originCode: 'CHN',
-    departureTime: '1:00PM',
-    destination: 'Coimbatore',
-    destinationCode: 'CB',
-    arrivalTime: '4:00AM',
-    price: '120',
-    availableSeats: '20',
-    totalSeats: '120'
-  }
-];
-
 const HomePage = () => {
-  const [journeys, setJourneys] = useState(sampleJourneys);
+  const [journeys, setJourneys] = useState({});
   
   const handleSearch = (searchParams) => {
     console.log('Search params:', searchParams);
-    // In a real application, you would fetch data from an API here
-    // For now, we're just using the sample data
   };
   
   return (
@@ -53,9 +19,11 @@ const HomePage = () => {
         {/* <SearchForm onSearch={handleSearch} /> */}
         
         <div className="journey-list">
-          {journeys.map((journey, index) => (
+          {/* {journeys.map((journey, index) => (
             <MatchCard key={index} journey={journey} />
-          ))}
+          ))} */}
+          <MatchCard />
+          <BookingCard />
         </div>
       </main>
     </div>
