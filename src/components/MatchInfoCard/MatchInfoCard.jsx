@@ -1,4 +1,5 @@
-const MatchInfoCard = () => {
+import DateFormatter from "../DateFormatter/DateFormatter";
+const MatchInfoCard = ({matchDetails}) => {
     return (
         <div className="teams-container">
             <div className="team">
@@ -9,18 +10,19 @@ const MatchInfoCard = () => {
                         className="team-logo-img"
                     />
                 </div>
-                <div className="team-name">RCB</div>
+                <div className="team-name">{matchDetails.homeTeamName}</div>
             </div>
 
             <div className="match-metadata">
                 <p class="versus">vs</p>
                 <div class="date">
                     <img src="/calander.svg" alt="location" width="14px" height="14px" />
-                    <p> : Mar 23, 2025 | 7:30 PM</p>
+                    <p>: <DateFormatter date={matchDetails.scheduledDate} /></p>
+
                 </div>
                 <div class="venue">
                     <img src="/location.svg" alt="location" width="14px" height="14px" />
-                    <p> : M Chinnaswammy</p>
+                    <p>: {matchDetails.venue}</p>
                 </div>
             </div>
 
@@ -32,7 +34,7 @@ const MatchInfoCard = () => {
                         className="team-logo-img"
                     />
                 </div>
-                <div className="team-name">CSK</div>
+                <div className="team-name">{matchDetails.awayTeamName}</div>
             </div>
         </div>
     )
