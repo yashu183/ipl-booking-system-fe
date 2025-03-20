@@ -35,3 +35,31 @@
 .button.text:hover {
     background-color: rgba(191, 49, 49, 0.05);
 }
+
+.button.error {
+    background-color: var(--error);
+    color: var(--secondary-background);
+}
+
+.button.error:hover {
+    color: var(--error);
+    background-color: var(--error-background);
+}
+.button.success {
+    background-color: var(--success);
+    color: var(--secondary-background);
+}
+
+.button.success:hover {
+    color: var(--success);
+    background-color: var(--success-background);
+}
+.button.neutral {
+    background-color: var(--neutral);
+    color: var(--secondary-background);
+}
+
+.button.neutral:hover {
+    color: var(--neutral);
+    background-color: var(--neutral-background);
+}
