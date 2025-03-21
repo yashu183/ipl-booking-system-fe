@@ -14,8 +14,8 @@ const Booking = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const data = await getBookings(2); //pass userID
-        setBookings(data.responseData.bookings);
+        const data = await getBookings(1); //pass userID
+        setBookings(data.bookings);
       } catch (err) {
         setError(err.message);
       } finally {
