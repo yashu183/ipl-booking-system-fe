@@ -29,7 +29,7 @@ const LoginPage = () => {
         navigate("/");
     } catch (error) {
       setError(error.message);
-      console.error('Login error:', err);
+      console.error('Login error:', error);
     } finally {
       setLoading(false);
     }
@@ -38,7 +38,7 @@ const LoginPage = () => {
   return (
     <div>
         <div className="login-container">
-            <Logo />
+            <Logo variant="brand" />
             <div className="login-card">
                 <div className="login-header">
                 <h1>Welcome Back</h1>
@@ -109,7 +109,7 @@ const LoginPage = () => {
                 <div className="login-footer">
                 <p>
                     Don't have an account?{' '}
-                    <span class="register-link" onClick={() => navigate('/register')}>Sign up</span> 
+                    <span className="register-link" onClick={() => navigate('/register')}>Sign up</span> 
                 </p>
                 </div>
             </div>

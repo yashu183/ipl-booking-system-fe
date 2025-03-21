@@ -1,0 +1,12 @@
+import { jwtDecode } from 'jwt-decode';
+
+export const getUserId = () => {
+    const token  = localStorage.getItem('token');
+
+    if (!token) {
+      throw new Error("No token found!");
+    }
+  
+    const userDetails = jwtDecode(token);
+    return userDetails.userId ?? 0;
+}

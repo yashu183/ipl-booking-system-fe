@@ -21,7 +21,7 @@
 
 .nav-link {
     color: var(--text);
-    font-weight: 600;
+    font-weight: 500;
     transition: color 0.2s;
 }
 
@@ -39,4 +39,41 @@
     justify-content: center;
     color: var(--primary-background);
     font-weight: 500;
+}
+
+.active {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.user-menu {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--secondary-background);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    box-shadow: 0 2px 10px var(--shadow);
+    margin-top: 5px;
+    min-width: 120px;
+    z-index: 1000;
+}
+
+.logout-btn {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.logout-btn:hover {
+    background-color: var(--primary-background);
 }
