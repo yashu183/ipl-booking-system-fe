@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./BookingCard.css";
 import MatchInfoCard from "../MatchInfoCard/MatchInfoCard";
 import Button from "../Button/Button";
-import Confirmation_modal from "../ConfirmationModal/ConfirmationModal";
+import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import { cancelBooking } from "../../services/api.service";
 import DateFormatter from "../DateFormatter/DateFormatter";
 const BookingCard = ({ booking }) => {
@@ -18,6 +18,7 @@ const BookingCard = ({ booking }) => {
     const data = await cancelBooking(booking.bookingId);
     window.location.reload();
   };
+  
   return (
     <div className="booking-card">
       <div className="booking-card-header">
@@ -43,7 +44,7 @@ const BookingCard = ({ booking }) => {
           </Button>
         </div>
       </div>
-      <Confirmation_modal
+      <ConfirmationModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={handleConfirmCancel}
