@@ -18,7 +18,7 @@ const HomePage = () => {
       <main className="main-content">
         {/* <SearchForm onSearch={handleSearch} /> */}
         
-        <div className="journey-list">
+        <div className="match-list">
           {/* {journeys.map((journey, index) => (
             <MatchCard key={index} journey={journey} />
           ))} */}

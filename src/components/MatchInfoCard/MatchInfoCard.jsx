@@ -14,13 +14,13 @@ const MatchInfoCard = ({matchDetails}) => {
             </div>
 
             <div className="match-metadata">
-                <p class="versus">vs</p>
-                <div class="date">
+                <p className="versus">vs</p>
+                <div className="date">
                     <img src="/calander.svg" alt="location" width="14px" height="14px" />
                     <p>: <DateFormatter date={matchDetails.scheduledDate} /></p>
 
                 </div>
-                <div class="venue">
+                <div className="venue">
                     <img src="/location.svg" alt="location" width="14px" height="14px" />
                     <p>: {matchDetails.venue}</p>
                 </div>
