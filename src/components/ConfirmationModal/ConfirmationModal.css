@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--popup-dropback);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,10 +12,10 @@
 }
 
 .modal-container {
-  background: white;
+  background: var(--secondary-background);
   padding: 30px;
   border-radius: 8px;
-  width: 400px;
+  width: 30%;
   box-shadow: var(--shadow);
   position: relative;
   text-align: center;
@@ -27,37 +27,25 @@
   right: 15px;
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 22px;
   cursor: pointer;
 }
 
 .modal-title {
   font-size: 1.5rem;
-  margin-bottom: 10px;
-}
-
-.booking-details {
-  background: var(--neutralBackground);
-  padding: 10px;
-  border-radius: 5px;
-  text-align: left;
   margin-bottom: 15px;
 }
 
-.booking-details p {
-  margin: 5px 0;
-}
-
 .modal-message {
-  margin-bottom: 20px;
-  font-size: 1rem;
+  margin-bottom: 1rem;
+  font-size: 18px;
+  font-weight: 500;
   color: var(--text);
 }
 
 .modal-actions {
   display: flex;
-  justify-content: space-between;
-  gap: 10px;
+  justify-content: space-around;
 }
 
 

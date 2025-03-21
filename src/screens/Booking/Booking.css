@@ -1,3 +1,20 @@
-.default-text {
+.booking-list {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-bookings {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-bookings-text {
+    margin-top: 1rem;
+    font-size: 18px;
+    font-weight: 500;
     text-align: center;
 }

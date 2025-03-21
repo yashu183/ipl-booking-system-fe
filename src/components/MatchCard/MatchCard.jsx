@@ -19,7 +19,7 @@ const MatchCard = () => {
 
       <hr className="partition"></hr>
 
-      <div class="pricing-data">
+      <div className="pricing-data">
         <div className="ticket-label">
           Available Tickets: <span className="active-tkts">2</span> / 20
         </div>

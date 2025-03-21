@@ -2,12 +2,14 @@
   /* Light theme colors */
   --text: #233142; 
   --border: #5A5A5A;
+  --secondary-border: #c5ccd2;
   --primary: #5586ee;
   --primary-hover: #3966c5;
   --primary-background: #f2f5ff;
   --secondary-background: #FFFFFF;
   --primary-shadow: #cdcced;
   --error: #DC3545;
+  --secondary-error: #c97b83;
   --error-background: #F8D7DA;
   --success: #28A745;
   --success-background: #D4EDDA;
@@ -16,6 +18,7 @@
   --neutral: #6C757D;
   --neutral-background: #E2E3E5;
   --shadow: rgba(0, 0, 0, 0.1);
+  --popup-dropback: rgba(0, 0, 0, 0.5);
 }
 
 * {

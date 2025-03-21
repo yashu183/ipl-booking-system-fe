@@ -37,13 +37,14 @@
 }
 
 .button.error {
-    background-color: var(--error);
-    color: var(--secondary-background);
+    border: 1px solid var(--error);
+    color: var(--error);
+    background-color: var(--secondary-background);
 }
 
 .button.error:hover {
-    color: var(--error);
-    background-color: var(--error-background);
+    background-color: var(--error);
+    color: var(--secondary-background);
 }
 .button.success {
     background-color: var(--success);
@@ -61,5 +62,6 @@
 
 .button.neutral:hover {
     color: var(--neutral);
-    background-color: var(--neutral-background);
+    border: 1px solid var(--neutral);
+    background-color: var(--secondary-background);
 }

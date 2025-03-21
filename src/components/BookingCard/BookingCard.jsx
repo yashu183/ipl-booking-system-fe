@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./BookingCard.css";
 import MatchInfoCard from "../MatchInfoCard/MatchInfoCard";
 import Button from "../Button/Button";
-import Confirmation_modal from "../Confirmation_modal/Confirmation_modal";
+import Confirmation_modal from "../ConfirmationModal/ConfirmationModal";
 import { cancelBooking } from "../../services/api.service";
 import DateFormatter from "../DateFormatter/DateFormatter";
 const BookingCard = ({ booking }) => {
@@ -28,10 +28,10 @@ const BookingCard = ({ booking }) => {
       <div className="booking-card-content">
         <MatchInfoCard matchDetails={booking.match} />
       </div>
-      <div class="booking-card-footer">
+      <div className="booking-card-footer">
         <div className="price">
           <img src="/tickets.svg" alt="tickets" width="30px" height="30px" />
-          <span> : {booking.bookedTkts}</span>
+          <p> : {booking.bookedTkts}</p>
         </div>
         <div>
           <Button
