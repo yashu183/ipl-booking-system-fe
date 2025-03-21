@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Header from '../../components/Header/Header';
 import MatchCard from '../../components/MatchCard/MatchCard';
-import BookingCard from '../../components/BookingCard/BookingCard';
 import './Home.css';
 
 const HomePage = () => {
@@ -22,8 +21,7 @@ const HomePage = () => {
           {/* {journeys.map((journey, index) => (
             <MatchCard key={index} journey={journey} />
           ))} */}
-          <MatchCard />
-          <BookingCard />
+          {/* <MatchCard /> */}
         </div>
       </main>
     </div>
