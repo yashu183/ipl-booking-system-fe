@@ -131,3 +131,62 @@ export const registerUser = async (user) => {
     throw error;
   }
 }
+
+export const confirmBooking = async (matchId, userId, ticketsCount) => {
+  try {
+    const token = localStorage.getItem('token');
+    const httpResponse = await fetch(`${API_BASE_URL}/bookings/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        "userId": userId,
+        "matchId": matchId,
+        "bookedTkts": ticketsCount
+      }
+      )
+    });
+    
+    // reading response stream
+    const response = await httpResponse.json();
+
+    // check for failed response
+    if(response.exception) {
+      throw(response.exception)
+    }
+
+    return response.responseData;
+  } catch (error) {
+    console.error('Error cancelling booking:', error);
+    throw error;
+  }
+};
+
+
+export const getAllBookings = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    const httpResponse = await fetch(`${API_BASE_URL}/bookings/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // reading response stream
+    const response = await httpResponse.json();
+
+    // check for failed response
+    if(response.exception) {
+      throw(response.exception)
+    }
+
+    return response.responseData;
+  } catch (error) {
+    console.error('Error fetching bookings:', error);
+    throw error;
+  }
+};

@@ -5,7 +5,7 @@ import Button from "../Button/Button";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import { cancelBooking } from "../../services/api.service";
 import DateFormatter from "../DateFormatter/DateFormatter";
-const BookingCard = ({ booking }) => {
+const BookingCard = ({ booking, isAdmin }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCancelClick = () => {
@@ -18,7 +18,7 @@ const BookingCard = ({ booking }) => {
     const data = await cancelBooking(booking.bookingId);
     window.location.reload();
   };
-  
+
   return (
     <div className="booking-card">
       <div className="booking-card-header">
@@ -27,7 +27,7 @@ const BookingCard = ({ booking }) => {
         </p>
       </div>
       <div className="booking-card-content">
-        <MatchInfoCard matchDetails={booking.match} />
+        <MatchInfoCard matchDetails={booking} />
       </div>
       <div className="booking-card-footer">
         <div className="price">
@@ -35,13 +35,15 @@ const BookingCard = ({ booking }) => {
           <p> : {booking.bookedTkts}</p>
         </div>
         <div>
-          <Button
-            className="cancel-button"
-            variant="error"
-            onClick={handleCancelClick}
-          >
-            Cancel Booking
-          </Button>
+          {!isAdmin && (
+            <Button
+              className="cancel-button"
+              variant="error"
+              onClick={handleCancelClick}
+            >
+              Cancel Booking
+            </Button>
+          )}
         </div>
       </div>
       <ConfirmationModal
