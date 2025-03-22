@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Logo from '../Logo/Logo';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { getUserId } from "../../utils/utils.service";
+import { getUserId, getUserRole } from "../../utils/utils.service";
 import './Header.css';
 import { getUserById } from "../../services/api.service";
 
@@ -42,6 +42,7 @@ const Header = () => {
                 <nav className="nav">
                     <Link to="/" className={`nav-link ${pathname === '/' ? 'active' : ''}`}>Home</Link>
                     <Link to="/history" className={`nav-link ${pathname === '/history' ? 'active' : ''}`}>Booking History</Link>
+                    {getUserRole() == "ADMIN" && (<Link to="/bookings" className={`nav-link ${pathname === '/bookings' ? 'active' : ''}`}>View All Bookings</Link>)}
                     <div className="user-menu" ref={dropdownRef}>
                         <a 
                             href="#" 

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import BookingCard from "../../components/BookingCard/BookingCard";
 import Header from "../../components/Header/Header";
-import { getBookings } from "../../services/api.service";
+import { getAllBookings, getBookings } from "../../services/api.service";
 import ErrorCard from "../../components/ErrorCard/ErrorCard";
-import "./Booking.css";
+import "./AdminBookings.css";
 import Loader from "../../components/Loader/Loader";
-import { getUserId } from "../../utils/utils.service";
 
-const Booking = () => {
+const AdminBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -15,7 +14,7 @@ const Booking = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const data = await getBookings(getUserId());
+        const data = await getAllBookings(1); //pass userID
         setBookings(data.bookings);
       } catch (err) {
         setError(err.message);
@@ -46,7 +45,7 @@ const Booking = () => {
         ) : (
           <div className="booking-list">
             {bookings.map(booking => {
-              return <BookingCard key={booking.bookingId} booking={booking} />
+              return <BookingCard key={booking.bookingId} booking={booking} isAdmin="true" />
             }  
             )}
           </div>
@@ -56,4 +55,4 @@ const Booking = () => {
   );
 };
 
-export default Booking;
+export default AdminBookings;

@@ -5,7 +5,7 @@ import Booking from './screens/Booking/Booking';
 import LoginPage from './screens/Login/Login';
 import ProtectedRoute from './config/ProtectedRoutes';
 import RegisterPage from './screens/Register/Register';
-
+import AdminBookings from './screens/AdminBookings/AdminBookings';
 function App() {
   return (
     <Router>
@@ -17,6 +17,9 @@ function App() {
         } />
         <Route path="/history" element={
           <ProtectedRoute element={<Booking />} />
+        } />
+        <Route path="/bookings" element={
+          <ProtectedRoute element={<AdminBookings />} allowedRoles="ADMIN" />
         } />
         <Route path="*" element={<ProtectedRoute element={<HomePage />} />}/>
       </Routes>
