@@ -190,3 +190,29 @@ export const getAllBookings = async () => {
     throw error;
   }
 };
+
+export const getAllUpcomingMatches = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    const httpResponse = await fetch(`${API_BASE_URL}/matches/upcoming `, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // reading response stream
+    const response = await httpResponse.json();
+
+    // check for failed response
+    if(response.exception) {
+      throw(response.exception)
+    }
+
+    return response.responseData;
+  } catch (error) {
+    console.error('Error fetching bookings:', error);
+    throw error;
+  }
+};

@@ -3,7 +3,7 @@ import './MatchCard.css';
 import Button from '../Button/Button';
 import MatchInfoCard from "../MatchInfoCard/MatchInfoCard"
 
-const MatchCard = () => {
+const MatchCard = ({index, matchDetails}) => {
   return (
     <div className="match-card">
       <div className="action-icons">
@@ -15,17 +15,17 @@ const MatchCard = () => {
         </div>
       </div>
       
-      <MatchInfoCard />
+      <MatchInfoCard matchDetails={matchDetails} />
 
       <hr className="partition"></hr>
 
       <div className="pricing-data">
         <div className="ticket-label">
-          Available Tickets: <span className="active-tkts">2</span> / 20
+          Available Tickets: <span className="active-tkts">{matchDetails.ttlTkts - matchDetails.ttlBookedTkts}</span> / {matchDetails.ttlTkts - matchDetails.ttlBookedTkts}
         </div>
 
         <div className="ticket-price">
-          $50.00
+          ${matchDetails.price}
         </div>
 
         <div className="button-wrapper"> <Button className="book-button">Book Now</Button> </div>
