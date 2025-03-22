@@ -18,3 +18,17 @@
         padding: 16px;
     }
 }
+.row-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.create-button {
+    padding: 10px 20px;
+    background-color: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
