@@ -41,8 +41,8 @@ const Header = () => {
                 <Logo />
                 <nav className="nav">
                     <Link to="/" className={`nav-link ${pathname === '/' ? 'active' : ''}`}>Home</Link>
-                    <Link to="/history" className={`nav-link ${pathname === '/history' ? 'active' : ''}`}>Booking History</Link>
-                    {getUserRole() == "ADMIN" && (<Link to="/bookings" className={`nav-link ${pathname === '/bookings' ? 'active' : ''}`}>View All Bookings</Link>)}
+                    <Link to="/history" className={`nav-link ${pathname === '/history' ? 'active' : ''}`}>History</Link>
+                    {getUserRole() == "ADMIN" && (<Link to="/bookings" className={`nav-link ${pathname === '/bookings' ? 'active' : ''}`}>All Bookings</Link>)}
                     <div className="user-menu" ref={dropdownRef}>
                         <a 
                             href="#" 

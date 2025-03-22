@@ -10,7 +10,7 @@ const MatchInfoCard = ({matchDetails}) => {
                         className="team-logo-img"
                     />
                 </div>
-                <div className="team-name">{matchDetails.team.homeTeamName}</div>
+                <div className="team-name">{matchDetails.team.homeTeamName.toUpperCase()}</div>
             </div>
 
             <div className="match-metadata">
@@ -34,7 +34,7 @@ const MatchInfoCard = ({matchDetails}) => {
                         className="team-logo-img"
                     />
                 </div>
-                <div className="team-name">{matchDetails.team.awayTeamName}</div>
+                <div className="team-name">{matchDetails.team.awayTeamName.toUpperCase()}</div>
             </div>
         </div>
     )
