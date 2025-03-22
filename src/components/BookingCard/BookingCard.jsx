@@ -5,6 +5,10 @@ import Button from "../Button/Button";
 import ConfirmationModal from "../ConfirmationModal/ConfirmationModal";
 import { cancelBooking } from "../../services/api.service";
 import DateFormatter from "../DateFormatter/DateFormatter";
+import { FaRegUser } from "react-icons/fa";
+import { MdOutlineAlternateEmail } from "react-icons/md";
+
+
 const BookingCard = ({ booking, isAdmin }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -31,8 +35,8 @@ const BookingCard = ({ booking, isAdmin }) => {
       </div>
       <div className="booking-card-footer">
         <div className="price">
-          <img src="/tickets.svg" alt="tickets" width="30px" height="30px" />
-          <p> : {booking.bookedTkts}</p>
+          <img src="/tickets.svg" alt="tickets" width="28px" height="28px" />
+          <p className="num-of-tkts"> {" "} {booking.bookedTkts}</p>
         </div>
         <div>
           {!isAdmin && (
@@ -43,6 +47,12 @@ const BookingCard = ({ booking, isAdmin }) => {
             >
               Cancel Booking
             </Button>
+          )}
+          {isAdmin && (
+            <div className="user-details">
+              <div className="user-name"> <FaRegUser size={18} /><p>: { booking.user.name.split(" ")[0][0].toUpperCase() + booking.user.name.split(" ")[0].slice(1) }</p> </div>
+              <div className="user-email"><MdOutlineAlternateEmail size={18} /><p>: { booking.user.email }</p></div>
+            </div>
           )}
         </div>
       </div>
