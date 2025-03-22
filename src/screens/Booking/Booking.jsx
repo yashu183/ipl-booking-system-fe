@@ -12,18 +12,19 @@ const Booking = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        const data = await getBookings(getUserId());
-        setBookings(data.bookings);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchBookings = async () => {
+    setLoading(true);
+    try {
+      const data = await getBookings(getUserId());
+      setBookings(data.bookings);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchBookings();
   }, []);
 
@@ -46,7 +47,7 @@ const Booking = () => {
         ) : (
           <div className="booking-list">
             {bookings.map(booking => {
-              return <BookingCard key={booking.bookingId} booking={booking} />
+              return <BookingCard key={booking.bookingId} booking={booking} onDeleteSuccess={fetchBookings}/>
             }  
             )}
           </div>
