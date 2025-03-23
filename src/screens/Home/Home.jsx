@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import MatchCard from '../../components/MatchCard/MatchCard';
-import { createMatch, deleteMatch, getAllUpcomingMatches, updateMatch } from "../../services/api.service";
+import { createMatch, deleteMatch, getAllUpcomingMatches, updateMatch, confirmBooking } from "../../services/api.service";
 import { getUserRole } from '../../utils/utils.service';
 import CreateMatchModal from '../../components/CreateMatchModal/CreateMatchModal';
 import Button from '../../components/Button/Button';
@@ -10,6 +10,7 @@ import './Home.css';
 import Loader from '../../components/Loader/Loader';
 import ErrorCard from '../../components/ErrorCard/ErrorCard';
 import SuccessCard from '../../components/SuccessCard/SuccessCard';
+import BookingConfirmationModal from '../../components/BookingConfirmationModal/BookingConfirmationModal';
 
 const HomePage = () => {
   const [upcomingMatches, setUpcomingMatches] = useState([]);
@@ -18,6 +19,8 @@ const HomePage = () => {
   const [success, setSuccess] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+  const [iscurrentMatchEdit, setIsCurrentMatchEdit] = useState({});
 
   const handleCreateMatchButtonClick = () => {
     setIsModalOpen(true);
@@ -78,6 +81,25 @@ const HomePage = () => {
       setLoading(false);
     }
   };
+
+  const handleConfirmTickets = async (matchId, userId, numOfTkts) => {
+    try {
+      setLoading(true);
+      const response = await confirmBooking(matchId, userId, numOfTkts);
+      fetchUpcomingMatches();
+      setSuccess(response.message); 
+    } catch (error) {
+      setError(error.message);
+      console.error('Match Tkts booking error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleBookings = (matchDetails) => {
+    setIsBookingModalOpen(true);
+    setIsCurrentMatchEdit(matchDetails);
+  }
 
   useEffect(() => {
     fetchUpcomingMatches();
@@ -145,9 +167,18 @@ const HomePage = () => {
                   onDeleteConfirm={(id) => {
                     handleMatchDeleteFormSubmission(id)
                   }}
+                  handleBookings={handleBookings}
                 />
               ))}
             </div>
+
+            <BookingConfirmationModal
+              isOpen={isBookingModalOpen}
+              onClose={() => setIsBookingModalOpen(false)}
+              onConfirm={(userId, matchId, numOfTkts) => handleConfirmTickets(userId, matchId, numOfTkts) }
+              handleBookings={handleBookings}
+              matchDetails={iscurrentMatchEdit}
+            />
       
             <CreateMatchModal
               isOpen={isModalOpen}

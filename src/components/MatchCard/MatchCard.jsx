@@ -8,7 +8,7 @@ import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
 import { FiEdit3 } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 
-const MatchCard = ({id, matchDetails, onEditConfirm, onDeleteConfirm}) => {
+const MatchCard = ({ id, matchDetails, onEditConfirm, onDeleteConfirm, handleBookings }) => {
 
   const [isAdmin, setIsAdmin] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -65,7 +65,6 @@ const MatchCard = ({id, matchDetails, onEditConfirm, onDeleteConfirm}) => {
                 onDeleteConfirm(id)
               }}
             />
-
           </div>
         )}
       </div>
@@ -74,14 +73,14 @@ const MatchCard = ({id, matchDetails, onEditConfirm, onDeleteConfirm}) => {
 
       <div className="pricing-data">
         <div className="ticket-label">
-          Available : <span className="active-tkts">{matchDetails.ttlTkts - matchDetails.ttlBookedTkts}</span> / {matchDetails.ttlTkts - matchDetails.ttlBookedTkts}
+          Available : <span className="active-tkts">{matchDetails.ttlTkts - matchDetails.ttlBookedTkts}</span> / {matchDetails.ttlTkts}
         </div>
 
         <div className="ticket-price">
           ${matchDetails.price}
         </div>
 
-        <div className="button-wrapper"> <Button variant="outline" className="book-button">Book Now</Button> </div>
+        <div className="button-wrapper"> <Button variant="outline" className="book-button" onClick = {() => {handleBookings(matchDetails)}}>Book Now</Button> </div>
       </div>
 
     </div>

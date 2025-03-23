@@ -134,7 +134,7 @@ export const registerUser = async (user) => {
   }
 }
 
-export const confirmBooking = async (matchId, userId, ticketsCount) => {
+export const confirmBooking = async (userId, matchId, ticketsCount) => {
   try {
     const token = localStorage.getItem('token');
     const httpResponse = await fetch(`${API_BASE_URL}/bookings/`, {
@@ -146,7 +146,7 @@ export const confirmBooking = async (matchId, userId, ticketsCount) => {
       body: JSON.stringify({
         "userId": userId,
         "matchId": matchId,
-        "bookedTkts": ticketsCount
+        "bookedTkts": parseInt(ticketsCount)
       }
       )
     });
