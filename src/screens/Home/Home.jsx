@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import MatchCard from '../../components/MatchCard/MatchCard';
-import { createMatch, getAllUpcomingMatches } from "../../services/api.service";
+import { createMatch, deleteMatch, getAllUpcomingMatches, updateMatch } from "../../services/api.service";
 import './Home.css';
 import { getUserRole } from '../../utils/utils.service';
 import CreateMatchModal from '../../components/CreateMatchModal/CreateMatchModal';
@@ -13,20 +13,56 @@ const HomePage = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleButtonClick = () => {
+  const handleCreateMatchButtonClick = () => {
     setIsModalOpen(true);
   };
 
-  const handleFormSubmission = async (formData) => {
-    const response = await createMatch(formData);
-    fetchUpcomingMatches()
+  const handleMatchCreateFormSubmission = async (formData) => {
+    try {
+      setLoading(true);
+      const response = await createMatch(formData);
+      fetchUpcomingMatches()
+    } catch (error) {
+      setError(error.message);
+      console.error('Match Creation error:', error);
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleMatchEditFormSubmission = async (formData, id) => {
+    try {
+      setLoading(true);
+      const response = await updateMatch(formData, id);
+      fetchUpcomingMatches()
+    } catch (error) {
+      setError(error.message);
+      console.error('Match Edit error:', error);
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleMatchDeleteFormSubmission = async (id) => {
+    try {
+      setLoading(true);
+      const response = await deleteMatch(id);
+      fetchUpcomingMatches()
+    } catch (error) {
+      setError(error.message);
+      console.error('Match Deletion error:', error);
+    } finally {
+      setLoading(false)
+    }
   }
 
   const fetchUpcomingMatches = async () => {
     try {
-      const response = await getAllUpcomingMatches(); //pass userID
+      setLoading(true);
+      const response = await getAllUpcomingMatches();
       setUpcomingMatches(response.matches)
     } catch (err) {
+      console.error('Match Deletion error:', error);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -60,32 +96,56 @@ const HomePage = () => {
   return (
     <div className="home-page">
       <Header />
-      
-      <main className="main-content">
-      {isAdmin && (
-            <div className="row-container">
-                <button className="create-button" onClick={handleButtonClick} >Create Match</button>
-            </div>
-        )}
-        {/* <SearchForm onSearch={handleSearch} /> */}
-        
-        <div className="match-list">
-          {upcomingMatches.map((match, index) => (
-            <MatchCard key={index} matchDetails={match} />
-          ))}
-          {/* <MatchCard /> */}
+      {error && (
+          <div className="error-message">
+              {error}
+          </div>
+      )}
+      {loading && (
+        <div className="loading-container">
+          <div className="spinner"></div>
+          <span>Loading..</span>
         </div>
-
-        <CreateMatchModal
-          isOpen={isModalOpen}
-          onClose={() => {
-            setIsModalOpen(false)
-          }}
-          onConfirm={(formData, id) => { 
-            handleFormSubmission(formData)
-          }}
-        />
-      </main>
+      )}
+      {
+        !loading &&  
+        <main className="main-content">
+        {isAdmin && (
+              <div className="row-container">
+                  <button className="create-button" onClick={handleCreateMatchButtonClick} >Create Match</button>
+              </div>
+          )}
+          {/* <SearchForm onSearch={handleSearch} /> */}
+          
+          <div className="match-list">
+            {upcomingMatches.map((match, index) => (
+              <MatchCard 
+                key={index} 
+                id={match.matchId} 
+                matchDetails={match} 
+                onEditConfirm={(formData, id) => {
+                  handleMatchEditFormSubmission(formData, id)
+                }}
+                onDeleteConfirm={(id) => {
+                  handleMatchDeleteFormSubmission(id)
+                }}
+              />
+            ))}
+            {/* <MatchCard /> */}
+          </div>
+  
+          <CreateMatchModal
+            isOpen={isModalOpen}
+            onClose={() => {
+              setIsModalOpen(false)
+            }}
+            onConfirm={(formData, id) => { 
+              handleMatchCreateFormSubmission(formData)
+            }}
+          />
+        </main>
+      }
+      
     </div>
   );
 };

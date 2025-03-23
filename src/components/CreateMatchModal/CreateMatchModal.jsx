@@ -52,17 +52,18 @@ const CreateMatchModal = ({
     setIsLoading(true);
     try {
       const response = await getMatchById(id);
+      console.log(response)
       // Convert date string to input date format (YYYY-MM-DD)
-      const date = new Date(response.responseData.scheduledDate);
+      const date = new Date(response.match.scheduledDate);
       const formattedDate = date.toISOString().split('T')[0];
       
       setFormData({
-        homeTeamId: response.responseData.homeTeamId,
-        awayTeamId: response.responseData.awayTeamId,
+        homeTeamId: response.match.homeTeamId,
+        awayTeamId: response.match.awayTeamId,
         scheduledDate: formattedDate,
-        venue: response.responseData.venue,
-        price: response.responseData.price,
-        ttlTkts: response.responseData.ttlTkts
+        venue: response.match.venue,
+        price: response.match.price,
+        ttlTkts: response.match.ttlTkts
       });
     } catch (error) {
       console.error("Error fetching match details:", error);
