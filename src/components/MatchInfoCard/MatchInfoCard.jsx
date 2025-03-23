@@ -1,6 +1,5 @@
 import DateFormatter from "../DateFormatter/DateFormatter";
 const MatchInfoCard = ({matchDetails}) => {
-    console.log(matchDetails)
     return (
         <div className="teams-container">
             <div className="team">
