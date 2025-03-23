@@ -349,3 +349,38 @@ export const deleteMatch = async (matchId) => {
     throw error;
   }
 }
+
+export const getFilteredMatches = async (searchParams) => {
+  try {
+    const token = localStorage.getItem('token');
+    let url = `${API_BASE_URL}/matches/filter`;
+
+    if(searchParams.teamId) {
+      url += `?teamId=${searchParams.teamId}`;
+    }
+    if(searchParams.scheduledDate) {
+      url += `&scheduledDate=${searchParams.scheduledDate}`;
+    }
+
+    const httpResponse = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // reading response stream
+    const response = await httpResponse.json();
+
+    // check for failed response
+    if(response.exception) {
+      throw(response.exception)
+    }
+
+    return response.responseData;
+  } catch (error) {
+    console.error('Error fetching bookings:', error);
+    throw error;
+  }
+};
