@@ -40,7 +40,7 @@ const AdminBookings = () => {
         ) : bookings.length === 0 ? (
           <div className="no-bookings">
             <img src="/duckout.png" alt="" />
-            <p class="no-bookings-text">You don't have any bookings yet. Create a new booking to get started with the IPL ticket booking system.</p>
+            <p className="no-bookings-text">You don't have any bookings yet. Create a new booking to get started with the IPL ticket booking system.</p>
           </div>
         ) : (
           <div className="booking-list">

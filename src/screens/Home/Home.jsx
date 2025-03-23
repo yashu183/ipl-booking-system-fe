@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import MatchCard from '../../components/MatchCard/MatchCard';
-import { createMatch, deleteMatch, getAllUpcomingMatches, updateMatch, confirmBooking } from "../../services/api.service";
+import { createMatch, deleteMatch, getAllUpcomingMatches, updateMatch, confirmBooking, getAllTeams, getFilteredMatches } from "../../services/api.service";
 import { getUserRole } from '../../utils/utils.service';
 import CreateMatchModal from '../../components/CreateMatchModal/CreateMatchModal';
 import Button from '../../components/Button/Button';
@@ -11,6 +11,7 @@ import Loader from '../../components/Loader/Loader';
 import ErrorCard from '../../components/ErrorCard/ErrorCard';
 import SuccessCard from '../../components/SuccessCard/SuccessCard';
 import BookingConfirmationModal from '../../components/BookingConfirmationModal/BookingConfirmationModal';
+import Search from "../../components/Search/Search";
 
 const HomePage = () => {
   const [upcomingMatches, setUpcomingMatches] = useState([]);
@@ -21,6 +22,7 @@ const HomePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [iscurrentMatchEdit, setIsCurrentMatchEdit] = useState({});
+  const [teams, setTeams] = useState([]);
 
   const handleCreateMatchButtonClick = () => {
     setIsModalOpen(true);
@@ -73,7 +75,7 @@ const HomePage = () => {
     try {
       setLoading(true);
       const response = await getAllUpcomingMatches();
-      setUpcomingMatches(response.matches)
+      setUpcomingMatches(response.matches);
     } catch (err) {
       console.error('Match Deletion error:', error);
       setError(err.message);
@@ -101,8 +103,21 @@ const HomePage = () => {
     setIsCurrentMatchEdit(matchDetails);
   }
 
+  const fetchTeams = async () => {
+    setLoading(true);
+    try {
+      const response = await getAllTeams();
+      setTeams(response.teams);
+    } catch (error) {
+      console.error("Error fetching teams:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchUpcomingMatches();
+    fetchTeams();
   }, []);
   
   useEffect(() => {
@@ -121,8 +136,17 @@ const HomePage = () => {
     fetchUserRole()
   }, []);
   
-  const handleSearch = (searchParams) => {
-    console.log('Search params:', searchParams);
+  const handleSearch = async (searchParams) => {
+    try {
+      setLoading(true);
+      const response = await getFilteredMatches(searchParams);
+      setUpcomingMatches(response.matches)
+    } catch (error) {
+      setError(error.message);
+      console.error('Match Deletion error:', error);
+    } finally {
+      setLoading(false);
+    }
   };
   
   return (
@@ -140,37 +164,46 @@ const HomePage = () => {
         <Header />
         {!loading &&  
           <main className="main-content">
-            {isAdmin && (
-              <div className="row-container">
-                  <Button
-                    className="create-button"
-                    variant="primary"
-                    onClick={handleCreateMatchButtonClick}
-                  >
-                    <FaPlus />
-                    <p>Create Match</p>
-                  </Button>
-              </div>
-            )}
-              
-            {/* <SearchForm onSearch={handleSearch} /> */}
-              
-            <div className="match-list">
-              {upcomingMatches.map((match, index) => (
-                <MatchCard 
-                  key={index} 
-                  id={match.matchId} 
-                  matchDetails={match} 
-                  onEditConfirm={(formData, id) => {
-                    handleMatchEditFormSubmission(formData, id)
-                  }}
-                  onDeleteConfirm={(id) => {
-                    handleMatchDeleteFormSubmission(id)
-                  }}
-                  handleBookings={handleBookings}
-                />
-              ))}
+            <h2 className="find-matches">Find Matches</h2>
+            <div className="outer">
+              <Search teamDetails={teams} handleSearch={handleSearch} />
+              {isAdmin && (
+                <div className="row-container">
+                    <Button
+                      className="create-button"
+                      variant="primary"
+                      onClick={handleCreateMatchButtonClick}
+                    >
+                      <FaPlus />
+                    </Button>
+                </div>
+              )}
             </div>
+
+            {
+              upcomingMatches?.length > 0 ?
+              <div className="match-list">
+                {upcomingMatches.map((match, index) => (
+                  <MatchCard 
+                    key={index} 
+                    id={match.matchId} 
+                    matchDetails={match} 
+                    onEditConfirm={(formData, id) => {
+                      handleMatchEditFormSubmission(formData, id)
+                    }}
+                    onDeleteConfirm={(id) => {
+                      handleMatchDeleteFormSubmission(id)
+                    }}
+                    handleBookings={handleBookings}
+                  />
+                ))}
+              </div> : (
+                <div className="no-bookings">
+                  <img src="/duckout.png" alt="" />
+                  <p className="no-bookings-text">No Matches found with the given filters. Try changing them.</p>
+                </div>
+              )
+            }
 
             <BookingConfirmationModal
               isOpen={isBookingModalOpen}

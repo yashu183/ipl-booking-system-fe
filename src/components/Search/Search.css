@@ -1,0 +1,61 @@
+.match-search-container {
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--secondary-background);
+    box-shadow: 5px 5px 8px 0px var(--primary-shadow);
+    border-radius: 10px;
+    width: 75%;
+    flex-shrink: 2;
+    flex-grow: 2;
+}
+
+.match-search-form {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    flex-shrink: 2;
+    flex-grow: 2;
+}
+
+#team {
+    width: 100%;
+}
+
+select, input[type="date"] {
+    padding: 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 14px;
+    min-width: 200px;
+}
+
+.search-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+
+/* Responsive adjustments */
+    @media (max-width: 768px) {
+    .match-search-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+
+    select, input[type="date"] {
+        width: 100%;
+    }
+}
