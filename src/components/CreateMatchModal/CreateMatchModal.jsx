@@ -19,6 +19,7 @@ const CreateMatchModal = ({
     price: "",
     ttlTkts: ""
   };
+  const today = new Date().toISOString().split('T')[0];
 
   const [formData, setFormData] = useState(initialFormState);
   const [teams, setTeams] = useState([]);
@@ -192,6 +193,7 @@ const CreateMatchModal = ({
                 name="scheduledDate"
                 value={formData.scheduledDate}
                 onChange={handleChange}
+                min={today}
                 className={errors.scheduledDate ? "form-control error" : "form-control"}
               />
               {errors.scheduledDate && <div className="error-message">{errors.scheduledDate}</div>}
