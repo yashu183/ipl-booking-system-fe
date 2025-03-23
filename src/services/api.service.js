@@ -1,3 +1,5 @@
+import { getUserId } from "../utils/utils.service";
+
 const API_BASE_URL = 'http://localhost:5555/api';
 
 export const getBookings = async (userId) => {
@@ -194,7 +196,7 @@ export const getAllBookings = async () => {
 export const getAllUpcomingMatches = async () => {
   try {
     const token = localStorage.getItem('token');
-    const httpResponse = await fetch(`${API_BASE_URL}/matches/upcoming `, {
+    const httpResponse = await fetch(`${API_BASE_URL}/matches/upcoming`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -216,3 +218,89 @@ export const getAllUpcomingMatches = async () => {
     throw error;
   }
 };
+
+export const getAllTeams = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    const httpResponse = await fetch(`${API_BASE_URL}/teams/`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // reading response stream
+    const response = await httpResponse.json();
+
+    // check for failed response
+    if(response.exception) {
+      throw(response.exception)
+    }
+
+    return response.responseData;
+  } catch (error) {
+    console.error('Error fetching bookings:', error);
+    throw error;
+  }
+};
+
+export const getMatchById = async (id) => {
+  try {
+    const token = localStorage.getItem('token');
+    const httpResponse = await fetch(`${API_BASE_URL}/matches/match/${id}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    // reading response stream
+    const response = await httpResponse.json();
+
+    // check for failed response
+    if(response.exception) {
+      throw(response.exception)
+    }
+
+    return response.responseData;
+  } catch (error) {
+    console.error('Error fetching bookings:', error);
+    throw error;
+  }
+};
+
+export const createMatch = async (match) => {
+  try {
+    const userId = await getUserId();
+    const token = localStorage.getItem('token');
+    const matchData = {
+      ...match,
+      "ttlBookedTkts": 0,
+      "createdUserId": userId,
+      "updatedUserId": userId
+    }
+    const httpResponse = await fetch(`${API_BASE_URL}/matches/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(matchData)
+    });
+    
+    // reading response stream
+    const response = await httpResponse.json();
+
+    // check for failed response
+    if(response.exception) {
+      throw(response.exception)
+    }
+
+    return response.responseData;
+  } catch (error) {
+    console.error('Error cancelling booking:', error);
+    throw error;
+  }
+}
