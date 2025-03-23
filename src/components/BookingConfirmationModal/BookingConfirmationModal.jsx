@@ -1,22 +1,26 @@
 import React, { useState } from "react";
 import "./BookingConfirmationModal.css";
 import Button from "../Button/Button";
+import { getUserId } from "../../utils/utils.service";
 const BookingConfirmationModal = ({
   isOpen,
   onClose,
-  onConfirm
+  onConfirm,
+  matchDetails
 }) => {
   const [count, setCount] = useState(1);
   const [error, setError] = useState(null);
 
   const handleConfirm = () => {
-    // Add the match.ttlTkts as max limit
-    if (count < 1 || count > 1000) {
-      setError(`Maximum tickets limit exceeded!`);
+    const currAvblTkts = matchDetails.ttlTkts - matchDetails.ttlBookedTkts;
+    console.log(count, currAvblTkts);
+
+    if(count > currAvblTkts) {
+      setError(`Only ${currAvblTkts} tickets are availale. Please enter a valid number`);
       return;
     }
     setError(null);
-    onConfirm(count);
+    onConfirm(getUserId(), matchDetails.matchId, count);
     onClose();
   };
   if (!isOpen) return null;
@@ -33,7 +37,7 @@ const BookingConfirmationModal = ({
         <p className="modal-message">Enter the number of tickets required</p>
         {error && <div className="error-message">{error}</div>}
 
-        <div className="input-container">
+        <div className="form-group">
           <input
             type="number"
             value={count}
@@ -45,10 +49,10 @@ const BookingConfirmationModal = ({
         </div>
 
         <div className="modal-actions">
-          <Button variant="neutral" onClick={onClose}>
+          <Button className="cancel-btn" variant="neutral outline" type="button" onClick={onClose}>
             Cancel
           </Button>
-          <Button variant="success" onClick={handleConfirm}>
+          <Button className="success-btn" variant="primary" onClick={handleConfirm}>
             Confirm
           </Button>
         </div>
