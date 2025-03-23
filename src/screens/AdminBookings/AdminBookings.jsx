@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BookingCard from "../../components/BookingCard/BookingCard";
 import Header from "../../components/Header/Header";
-import { getAllBookings, getBookings } from "../../services/api.service";
+import { getAllBookings } from "../../services/api.service";
 import ErrorCard from "../../components/ErrorCard/ErrorCard";
 import "./AdminBookings.css";
 import Loader from "../../components/Loader/Loader";
@@ -14,7 +14,7 @@ const AdminBookings = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const data = await getAllBookings(1); //pass userID
+        const data = await getAllBookings();
         setBookings(data.bookings);
       } catch (err) {
         setError(err.message);

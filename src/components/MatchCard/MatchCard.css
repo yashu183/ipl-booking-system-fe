@@ -23,7 +23,7 @@
 }
 
 .team-logo {
-  width: 70px;
+  width: 120px;
   height: 70px;
   border-radius: 50%;
   display: flex;
@@ -115,21 +115,35 @@
 /* Action Icons */
 .action-icons {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 4px;
+  right: -50px;
   display: flex;
+  flex-direction: column;
   gap: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.match-info:hover .action-icons {
+  opacity: 1;
 }
 
 .icon {
+  padding: 5px;
+  background-color: var(--secondary-background);
+  box-shadow: 5px 5px 8px 0px var(--primary-shadow);
+  border-radius: 5px;
+}
+
+.icon:hover {
+  transform: scale(1.2);
   cursor: pointer;
-  color: #555;
 }
 
-.edit-icon:hover {
-  color: #3498db;
+.edit-icon {
+  color: var(--primary);
 }
 
-.delete-icon:hover {
-  color: #e74c3c;
+.delete-icon {
+  color: var(--error);
 }

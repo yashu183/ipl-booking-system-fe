@@ -10,19 +10,19 @@ const MatchInfoCard = ({matchDetails}) => {
                         className="team-logo-img"
                     />
                 </div>
-                <div className="team-name">{matchDetails.team.homeTeamName.toUpperCase()}</div>
+                <div className="team-name">{matchDetails.homeTeam?.name?.toUpperCase() ?? matchDetails.homeTeam?.code?.toUpperCase()}</div>
             </div>
 
             <div className="match-metadata">
                 <p className="versus">vs</p>
                 <div className="date">
                     <img src="/calander.svg" alt="location" width="14px" height="14px" />
-                    <p>: <DateFormatter date={matchDetails.scheduledDate} /></p>
+                    <p>: <DateFormatter date={matchDetails?.match?.scheduledDate ?? matchDetails.scheduledDate} /></p>
 
                 </div>
                 <div className="venue">
                     <img src="/location.svg" alt="location" width="14px" height="14px" />
-                    <p>: {matchDetails.venue}</p>
+                    <p>: {matchDetails?.match?.venue ?? matchDetails.venue}</p>
                 </div>
             </div>
 
@@ -34,7 +34,7 @@ const MatchInfoCard = ({matchDetails}) => {
                         className="team-logo-img"
                     />
                 </div>
-                <div className="team-name">{matchDetails.team.awayTeamName.toUpperCase()}</div>
+                <div className="team-name">{matchDetails.awayTeam?.name?.toUpperCase() ?? matchDetails.awayTeam?.code.toUpperCase()}</div>
             </div>
         </div>
     )

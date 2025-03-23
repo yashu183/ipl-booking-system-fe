@@ -46,10 +46,6 @@ const LoginPage = () => {
                 </div>
                 
                 {error && (
-                    // <ErrorCard 
-                    //     message={error} 
-                    //     onClose={() => setError(null)} 
-                    // />
                     <div className="error-message">
                         {error}
                     </div>

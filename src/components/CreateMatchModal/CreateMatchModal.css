@@ -9,88 +9,84 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-  }
-  
+}
+
+.match-modal-container {
+  background: var(--secondary-background);
+  padding: 30px;
+  border-radius: 8px;
+  width: 50%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.form-control.error {
+  border-color: var(--error);
+}
+
+.error-message {
+  color: var(--error-color);
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 26px;
+  gap: 10px;
+}
+
+.cancel-btn, .success-btn {
+  width: 45%;
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+  color: var(--text);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .match-modal-container {
-    background: var(--secondary-background);
-    padding: 30px;
-    border-radius: 8px;
-    width: 50%;
-    max-width: 600px;
-    max-height: 90vh;
-    overflow-y: auto;
-    box-shadow: var(--shadow);
-    position: relative;
-  }
-  
-  .close-icon {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 22px;
-    cursor: pointer;
-  }
-  
-  .modal-title {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: var(--text);
-  }
-  
-  .form-control {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    outline: none;
-    transition: border-color 0.3s ease;
-  }
-  
-  .form-control:focus {
-    border-color: var(--primary-color);
-  }
-  
-  .form-control.error {
-    border-color: var(--error-color);
-  }
-  
-  .error-message {
-    color: var(--error-color);
-    font-size: 14px;
-    margin-top: 5px;
-  }
-  
-  .modal-actions {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 30px;
-  }
-  
-  .loading-indicator {
-    text-align: center;
+    width: 90%;
     padding: 20px;
-    font-size: 18px;
-    color: var(--text);
   }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .match-modal-container {
-      width: 90%;
-      padding: 20px;
-    }
-  }
+}

@@ -11,20 +11,24 @@
 .button.primary {
     background-color: var(--primary);
     color: var(--secondary-background);
+    border: 1px solid var(--primary);
 }
 
 .button.primary:hover {
-    background-color: var(--primary-hover);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    background-color: var(--secondary-background);
 }
 
 .button.outline {
     border: 1px solid var(--primary);
     color: var(--primary);
-    background-color: transparent;
+    background-color: var(--secondary-background);
 }
 
 .button.outline:hover {
-    background-color: rgba(191, 49, 49, 0.05);
+    color: var(--secondary-background);
+    background-color: var(--primary);
 }
 
 .button.text {
@@ -55,13 +59,27 @@
     color: var(--success);
     background-color: var(--success-background);
 }
+
 .button.neutral {
     background-color: var(--neutral);
     color: var(--secondary-background);
+    border: 1px solid var(--neutral);
 }
 
 .button.neutral:hover {
     color: var(--neutral);
     border: 1px solid var(--neutral);
     background-color: var(--secondary-background);
+}
+
+.button.neutral.outline {
+    color: var(--neutral);
+    border: 1px solid var(--neutral);
+    background-color: var(--secondary-background);
+}
+
+.button.neutral.outline:hover {
+    background-color: var(--neutral);
+    color: var(--secondary-background);
+    border: 1px solid var(--neutral);
 }
