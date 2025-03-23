@@ -35,22 +35,6 @@
     margin: 0;
 }
 
-.success-message {
-    margin-bottom: 16px;
-    padding: 12px;
-    background-color: var(--success-background);
-    border: 1px solid var(--success-border);
-    color: var(--success);
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-.hint-text {
-    font-size: 12px;
-    color: var(--text);
-    margin-top: 4px;
-    margin-bottom: 0;
-}
 
 .register-footer {
     margin-top: 24px;

@@ -4,7 +4,6 @@
     box-shadow: inset 1px 1px 2px 0px var(--primary-shadow);
     padding: 24px;
     position: relative;
-    margin-bottom: 1rem;
     width: 49%;
     flex-wrap: wrap;
 }

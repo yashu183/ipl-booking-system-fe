@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./CreateMatchModal.css";
 import Button from "../Button/Button";
 import { getAllTeams, getMatchById } from "../../services/api.service";
+import Loader from "../Loader/Loader";
 
 const CreateMatchModal = ({
   isOpen,
@@ -52,7 +53,6 @@ const CreateMatchModal = ({
     setIsLoading(true);
     try {
       const response = await getMatchById(id);
-      console.log(response)
       // Convert date string to input date format (YYYY-MM-DD)
       const date = new Date(response.match.scheduledDate);
       const formattedDate = date.toISOString().split('T')[0];
@@ -79,7 +79,6 @@ const CreateMatchModal = ({
       [name]: value
     });
 
-    // Clear error for this field when user starts typing
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -118,7 +117,6 @@ const CreateMatchModal = ({
     e.preventDefault();
     
     if (validateForm()) {
-      // Convert numeric strings to proper types
       const submissionData = {
         ...formData,
         price: parseFloat(formData.price),
@@ -126,7 +124,6 @@ const CreateMatchModal = ({
       };
       
       onConfirm(submissionData, matchId);
-      // Clear form data after submission
       setFormData(initialFormState);
       setErrors({});
       onClose();
@@ -136,127 +133,124 @@ const CreateMatchModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay">
-      <div className="match-modal-container">
-        <button className="close-icon" onClick={onClose}>
-          &times;
-        </button>
-
-        <h4 className="modal-title">{title}</h4>
-
-        {isLoading ? (
-          <div className="loading-indicator">Loading...</div>
-        ) : (
+    <>
+      <div className="modal-overlay">
+        <div className="match-modal-container">
+          <button className="close-icon" onClick={onClose}>
+            &times;
+          </button>
+          <h4 className="modal-title">{title}</h4>
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="homeTeamId">Home Team</label>
-              <select
-                id="homeTeamId"
-                name="homeTeamId"
-                value={formData.homeTeamId}
-                onChange={handleChange}
-                className={errors.homeTeamId ? "form-control error" : "form-control"}
-              >
-                <option value="">Select Home Team</option>
-                {teams.map(team => (
-                  <option key={`home-${team.teamId}`} value={team.teamId}>
-                    {team.name}
-                  </option>
-                ))}
-              </select>
-              {errors.homeTeamId && <div className="error-message">{errors.homeTeamId}</div>}
-            </div>
+              <div className="form-group">
+                <label htmlFor="homeTeamId">Home Team</label>
+                <select
+                  id="homeTeamId"
+                  name="homeTeamId"
+                  value={formData.homeTeamId}
+                  onChange={handleChange}
+                  className={errors.homeTeamId ? "form-control error" : "form-control"}
+                >
+                  <option value="">Select Home Team</option>
+                  {teams.map(team => (
+                    <option key={`home-${team.teamId}`} value={team.teamId}>
+                      {team.name}
+                    </option>
+                  ))}
+                </select>
+                {errors.homeTeamId && <div className="error-message">{errors.homeTeamId}</div>}
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="awayTeamId">Away Team</label>
-              <select
-                id="awayTeamId"
-                name="awayTeamId"
-                value={formData.awayTeamId}
-                onChange={handleChange}
-                className={errors.awayTeamId ? "form-control error" : "form-control"}
-              >
-                <option value="">Select Away Team</option>
-                {teams.map(team => (
-                  <option key={`away-${team.teamId}`} value={team.teamId}>
-                    {team.name}
-                  </option>
-                ))}
-              </select>
-              {errors.awayTeamId && <div className="error-message">{errors.awayTeamId}</div>}
-            </div>
+              <div className="form-group">
+                <label htmlFor="awayTeamId">Away Team</label>
+                <select
+                  id="awayTeamId"
+                  name="awayTeamId"
+                  value={formData.awayTeamId}
+                  onChange={handleChange}
+                  className={errors.awayTeamId ? "form-control error" : "form-control"}
+                >
+                  <option value="">Select Away Team</option>
+                  {teams.map(team => (
+                    <option key={`away-${team.teamId}`} value={team.teamId}>
+                      {team.name}
+                    </option>
+                  ))}
+                </select>
+                {errors.awayTeamId && <div className="error-message">{errors.awayTeamId}</div>}
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="scheduledDate">Scheduled Date</label>
-              <input
-                type="date"
-                id="scheduledDate"
-                name="scheduledDate"
-                value={formData.scheduledDate}
-                onChange={handleChange}
-                min={today}
-                className={errors.scheduledDate ? "form-control error" : "form-control"}
-              />
-              {errors.scheduledDate && <div className="error-message">{errors.scheduledDate}</div>}
-            </div>
+              <div className="form-group">
+                <label htmlFor="scheduledDate">Scheduled Date</label>
+                <input
+                  type="date"
+                  id="scheduledDate"
+                  name="scheduledDate"
+                  value={formData.scheduledDate}
+                  onChange={handleChange}
+                  min={today}
+                  className={errors.scheduledDate ? "form-control error" : "form-control"}
+                />
+                {errors.scheduledDate && <div className="error-message">{errors.scheduledDate}</div>}
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="venue">Venue</label>
-              <input
-                type="text"
-                id="venue"
-                name="venue"
-                value={formData.venue}
-                onChange={handleChange}
-                placeholder="Enter venue"
-                className={errors.venue ? "form-control error" : "form-control"}
-              />
-              {errors.venue && <div className="error-message">{errors.venue}</div>}
-            </div>
+              <div className="form-group">
+                <label htmlFor="venue">Venue</label>
+                <input
+                  type="text"
+                  id="venue"
+                  name="venue"
+                  value={formData.venue}
+                  onChange={handleChange}
+                  placeholder="Enter venue"
+                  className={errors.venue ? "error" : ""}
+                />
+                {errors.venue && <div className="error-message">{errors.venue}</div>}
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="price">Price</label>
-              <input
-                type="number"
-                id="price"
-                name="price"
-                value={formData.price}
-                onChange={handleChange}
-                placeholder="Enter ticket price"
-                step="0.01"
-                min="0"
-                className={errors.price ? "form-control error" : "form-control"}
-              />
-              {errors.price && <div className="error-message">{errors.price}</div>}
-            </div>
+              <div className="form-group">
+                <label htmlFor="price">Price</label>
+                <input
+                  type="number"
+                  id="price"
+                  name="price"
+                  value={formData.price}
+                  onChange={handleChange}
+                  placeholder="Enter ticket price"
+                  step="0.01"
+                  min="0"
+                  className={errors.price ? "error" : ""}
+                />
+                {errors.price && <div className="error-message">{errors.price}</div>}
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="ttlTkts">Total Tickets</label>
-              <input
-                type="number"
-                id="ttlTkts"
-                name="ttlTkts"
-                value={formData.ttlTkts}
-                onChange={handleChange}
-                placeholder="Enter total tickets"
-                min="1"
-                className={errors.ttlTkts ? "form-control error" : "form-control"}
-              />
-              {errors.ttlTkts && <div className="error-message">{errors.ttlTkts}</div>}
-            </div>
+              <div className="form-group">
+                <label htmlFor="ttlTkts">Total Tickets</label>
+                <input
+                  type="number"
+                  id="ttlTkts"
+                  name="ttlTkts"
+                  value={formData.ttlTkts}
+                  onChange={handleChange}
+                  placeholder="Enter total tickets"
+                  min="1"
+                  className={errors.ttlTkts ? "error" : ""}
+                />
+                {errors.ttlTkts && <div className="error-message">{errors.ttlTkts}</div>}
+              </div>
 
-            <div className="modal-actions">
-              <Button variant="neutral" type="button" onClick={onClose}>
-                Cancel
-              </Button>
-              <Button variant="success" type="submit">
-                {matchId ? "Update" : "Create"}
-              </Button>
-            </div>
-          </form>
-        )}
+              <div className="modal-actions">
+                <Button className="cancel-btn" variant="neutral outline" type="button" onClick={onClose}>
+                  Cancel
+                </Button>
+                <Button className="success-btn" variant="primary" type="submit">
+                  {matchId ? "Update" : "Create"}
+                </Button>
+              </div>
+            </form>
+        </div>
       </div>
-    </div>
+      { isLoading && <Loader /> }
+    </>
   );
 };
 

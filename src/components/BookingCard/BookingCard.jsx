@@ -9,7 +9,7 @@ import { FaRegUser } from "react-icons/fa";
 import { MdOutlineAlternateEmail } from "react-icons/md";
 
 
-const BookingCard = ({ booking, isAdmin , onDeleteSuccess}) => {
+const BookingCard = ({ booking, isAdmin , onDeleteSuccess, setLoading }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCancelClick = () => {
@@ -17,10 +17,10 @@ const BookingCard = ({ booking, isAdmin , onDeleteSuccess}) => {
   };
 
   const handleConfirmCancel = async () => {
-    console.log(`Booking ${booking.bookingId} canceled`);
+    setLoading(true);
     setIsModalOpen(false);
     const data = await cancelBooking(booking.bookingId);
-    onDeleteSuccess();
+    onDeleteSuccess(data.message);
   };
 
   return (
@@ -60,7 +60,6 @@ const BookingCard = ({ booking, isAdmin , onDeleteSuccess}) => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={handleConfirmCancel}
-        booking={booking}
       />
     </div>
   );

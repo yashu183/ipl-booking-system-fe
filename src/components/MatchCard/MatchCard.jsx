@@ -4,7 +4,9 @@ import Button from '../Button/Button';
 import MatchInfoCard from "../MatchInfoCard/MatchInfoCard"
 import { getUserRole } from '../../utils/utils.service';
 import CreateMatchModal from '../CreateMatchModal/CreateMatchModal';
-import DeleteConfirmationModal from '../DeleteConfirmationModal/DeleteConfirmationModal';
+import ConfirmationModal from '../ConfirmationModal/ConfirmationModal';
+import { FiEdit3 } from "react-icons/fi";
+import { MdDeleteOutline } from "react-icons/md";
 
 const MatchCard = ({id, matchDetails, onEditConfirm, onDeleteConfirm}) => {
 
@@ -27,62 +29,59 @@ const MatchCard = ({id, matchDetails, onEditConfirm, onDeleteConfirm}) => {
     fetchUserRole()
   }, []);
 
-  const handleDeleteClick = () => {
-    console.log(id)
-  }
-
   return (
     <div className="match-card">
-      {isAdmin && (
-        <div className="action-icons">
+      <div className="match-info">
+        <MatchInfoCard matchDetails={matchDetails} />
+        {isAdmin && (
+          <div className="action-icons">
 
-          <div className="icon edit-icon" onClick = {() => {setIsEditModalOpen(true)}}>
-            Edit
+            <div className="icon edit-icon" onClick = {() => {setIsEditModalOpen(true)}}>
+              <FiEdit3 size={25} />
+            </div>
+
+            <CreateMatchModal
+              isOpen={isEditModalOpen}
+              onClose={() => {
+                setIsEditModalOpen(false)
+              }}
+              onConfirm={(formData, id) => { 
+                onEditConfirm(formData, id)
+              }}
+              matchId={id}
+              title='Edit Match'
+            />
+
+            <div className="icon delete-icon" onClick = {() => {setIsDeleteModalOpen(true)}}>
+              <MdDeleteOutline size={25} />
+            </div>
+
+            <ConfirmationModal 
+              isOpen={isDeleteModalOpen}
+              onClose={() => {
+                setIsDeleteModalOpen(false)
+              }}
+              onConfirm={() => { 
+                onDeleteConfirm(id)
+              }}
+            />
+
           </div>
-
-          <CreateMatchModal
-            isOpen={isEditModalOpen}
-            onClose={() => {
-              setIsEditModalOpen(false)
-            }}
-            onConfirm={(formData, id) => { 
-              onEditConfirm(formData, id)
-            }}
-            matchId={id}
-            title='Edit Match'
-          />
-
-          <div className="icon delete-icon" onClick = {() => {setIsDeleteModalOpen(true)}}>
-            Delete
-          </div>
-
-          <DeleteConfirmationModal 
-            isOpen={isDeleteModalOpen}
-            onClose={() => {
-              setIsDeleteModalOpen(false)
-            }}
-            onConfirm={() => { 
-              onDeleteConfirm(id)
-            }}
-          />
-
-        </div>
-      )}
-      
-      <MatchInfoCard matchDetails={matchDetails} />
+        )}
+      </div>
 
       <hr className="partition"></hr>
 
       <div className="pricing-data">
         <div className="ticket-label">
-          Available Tickets: <span className="active-tkts">{matchDetails.ttlTkts - matchDetails.ttlBookedTkts}</span> / {matchDetails.ttlTkts - matchDetails.ttlBookedTkts}
+          Available : <span className="active-tkts">{matchDetails.ttlTkts - matchDetails.ttlBookedTkts}</span> / {matchDetails.ttlTkts - matchDetails.ttlBookedTkts}
         </div>
 
         <div className="ticket-price">
           ${matchDetails.price}
         </div>
 
-        <div className="button-wrapper"> <Button className="book-button">Book Now</Button> </div>
+        <div className="button-wrapper"> <Button variant="outline" className="book-button">Book Now</Button> </div>
       </div>
 
     </div>
