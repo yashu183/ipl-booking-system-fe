@@ -248,7 +248,7 @@ export const getAllTeams = async () => {
 export const getMatchById = async (id) => {
   try {
     const token = localStorage.getItem('token');
-    const httpResponse = await fetch(`${API_BASE_URL}/matches/match/${id}`, {
+    const httpResponse = await fetch(`${API_BASE_URL}/matches/${id}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -273,21 +273,14 @@ export const getMatchById = async (id) => {
 
 export const createMatch = async (match) => {
   try {
-    const userId = await getUserId();
     const token = localStorage.getItem('token');
-    const matchData = {
-      ...match,
-      "ttlBookedTkts": 0,
-      "createdUserId": userId,
-      "updatedUserId": userId
-    }
     const httpResponse = await fetch(`${API_BASE_URL}/matches/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(matchData)
+      body: JSON.stringify(match)
     });
     
     // reading response stream
@@ -300,7 +293,60 @@ export const createMatch = async (match) => {
 
     return response.responseData;
   } catch (error) {
-    console.error('Error cancelling booking:', error);
+    console.error('Error creating match booking:', error);
+    throw error;
+  }
+}
+
+export const updateMatch = async (match, matchId) => {
+  try {
+    const token = localStorage.getItem('token');
+    const httpResponse = await fetch(`${API_BASE_URL}/matches/${matchId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(match)
+    });
+    
+    // reading response stream
+    const response = await httpResponse.json();
+
+    // check for failed response
+    if(response.exception) {
+      throw(response.exception)
+    }
+
+    return response.responseData;
+  } catch (error) {
+    console.error('Error updating match:', error);
+    throw error;
+  }
+}
+
+export const deleteMatch = async (matchId) => {
+  try {
+    const token = localStorage.getItem('token');
+    const httpResponse = await fetch(`${API_BASE_URL}/matches/${matchId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    
+    // reading response stream
+    const response = await httpResponse.json();
+
+    // check for failed response
+    if(response.exception) {
+      throw(response.exception)
+    }
+
+    return response.responseData;
+  } catch (error) {
+    console.error('Error updating match:', error);
     throw error;
   }
 }
