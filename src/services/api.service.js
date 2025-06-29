@@ -133,6 +133,7 @@ export const registerUser = async (user) => {
 }
 
 export const confirmBooking = async (userId, matchId, ticketsCount) => {
+  console.log("Confirming booking for userId:", userId, "matchId:", matchId, "ticketsCount:", ticketsCount);
   try {
     const token = localStorage.getItem('token');
     const httpResponse = await fetch(`${API_BASE_URL}/bookings/`, {
