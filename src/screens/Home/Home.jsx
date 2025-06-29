@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../../components/Header/Header';
 import MatchCard from '../../components/MatchCard/MatchCard';
 import { createMatch, deleteMatch, getAllUpcomingMatches, updateMatch, confirmBooking, getAllTeams, getFilteredMatches } from "../../services/api.service";
@@ -23,6 +23,10 @@ const HomePage = () => {
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
   const [iscurrentMatchEdit, setIsCurrentMatchEdit] = useState({});
   const [teams, setTeams] = useState([]);
+  const [searchParams, setSearchParams] = useState({
+    teamId: '',
+    scheduledDate: ''
+  });
 
   const handleCreateMatchButtonClick = () => {
     setIsModalOpen(true);
@@ -129,7 +133,8 @@ const HomePage = () => {
         }
       }
       catch(error) {
-        setUser(false);
+        console.error("Error fetching user role:", error);
+        setIsAdmin(false);
       }
     } 
 
@@ -138,6 +143,8 @@ const HomePage = () => {
   
   const handleSearch = async (searchParams) => {
     try {
+      console.log("Search Params:", searchParams);
+      setSearchParams(searchParams);
       setLoading(true);
       const response = await getFilteredMatches(searchParams);
       setUpcomingMatches(response.matches)
@@ -165,8 +172,9 @@ const HomePage = () => {
         {!loading &&  
           <main className="main-content">
             <h2 className="find-matches">Find Matches</h2>
+
             <div className="outer">
-              <Search teamDetails={teams} handleSearch={handleSearch} />
+              <Search teamDetails={teams} handleSearch={handleSearch} searchParamsFromParent={searchParams} />
               {isAdmin && (
                 <div className="row-container">
                     <Button
@@ -218,7 +226,7 @@ const HomePage = () => {
               onClose={() => {
                 setIsModalOpen(false)
               }}
-              onConfirm={(formData, id) => { 
+              onConfirm={(formData) => { 
                 handleMatchCreateFormSubmission(formData)
               }}
             />

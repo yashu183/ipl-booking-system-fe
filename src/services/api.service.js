@@ -354,12 +354,18 @@ export const getFilteredMatches = async (searchParams) => {
   try {
     const token = localStorage.getItem('token');
     let url = `${API_BASE_URL}/matches/filter`;
-
-    if(searchParams.teamId) {
-      url += `?teamId=${searchParams.teamId}`;
+    
+    const queryParams = new URLSearchParams();
+    
+    if (searchParams.teamId) {
+      queryParams.append('teamId', searchParams.teamId);
     }
-    if(searchParams.scheduledDate) {
-      url += `&scheduledDate=${searchParams.scheduledDate}`;
+    if (searchParams.scheduledDate) {
+      queryParams.append('scheduledDate', searchParams.scheduledDate);
+    }
+    
+    if (queryParams.toString()) {
+      url += `?${queryParams.toString()}`;
     }
 
     const httpResponse = await fetch(url, {

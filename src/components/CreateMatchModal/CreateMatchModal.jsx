@@ -53,10 +53,12 @@ const CreateMatchModal = ({
     setIsLoading(true);
     try {
       const response = await getMatchById(id);
+      console.log("Fetched match details:", response);
+
       // Convert date string to input date format (YYYY-MM-DD)
       const date = new Date(response.match.scheduledDate);
       const formattedDate = date.toISOString().split('T')[0];
-      
+
       setFormData({
         homeTeamId: response.match.homeTeamId,
         awayTeamId: response.match.awayTeamId,

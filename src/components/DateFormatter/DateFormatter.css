@@ -1,0 +1,9 @@
+span.time {
+    display: inline;
+}
+
+@media (max-width: 484px) {
+    span.time {
+        display: none !important;
+    }
+}
