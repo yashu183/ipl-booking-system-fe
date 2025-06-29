@@ -23,7 +23,8 @@ const MatchCard = ({ id, matchDetails, onEditConfirm, onDeleteConfirm, handleBoo
         }
       }
       catch(error) {
-        setUser(false);
+        console.error("Error fetching user role:", error);
+        setIsAdmin(false);
       }
     }
     fetchUserRole()

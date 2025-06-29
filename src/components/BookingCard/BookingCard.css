@@ -6,6 +6,7 @@
     position: relative;
     width: 49%;
     flex-wrap: wrap;
+    flex-grow: 1;
 }
 
 .booking-card:before,

@@ -1,3 +1,5 @@
+import './DateFormatter.css';
+
 const DateFormatter = ({ date }) => {
   const formattedDate = new Date(date).toLocaleString("en-US", {
     year: "numeric",
@@ -11,7 +13,7 @@ const DateFormatter = ({ date }) => {
     hour12: true
   });
 
-  return <span>{formattedDate} | {formattedTime}</span>
+  return <><span>{formattedDate} </span> <span className="time">|  {formattedTime}</span></>
 };
 
 export default DateFormatter;

@@ -47,5 +47,6 @@
 @media (max-width: 768px) {
     .main-content {
         padding: 16px;
+        max-width: 100%;
     }
 }

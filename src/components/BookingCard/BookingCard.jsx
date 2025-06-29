@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./BookingCard.css";
 import MatchInfoCard from "../MatchInfoCard/MatchInfoCard";
 import Button from "../Button/Button";
